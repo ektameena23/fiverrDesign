@@ -1,23 +1,43 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
-
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
+  { path: "/", redirect: "/orders" },
   {
     path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    component: () => import("../views/Dashboard.vue"),
+    children: [
+      {
+        path: "orders",
+        name: "orders",
+        component: () => import("../pages/Orders.vue"),
+      },
+      {
+        path: "dashboard",
+        component: () => import("../pages/CommingSoon.vue"),
+      },
+      {
+        path: "messages",
+        component: () => import("../pages/CommingSoon.vue"),
+      },
+      {
+        path: "gigs",
+        component: () => import("../pages/CommingSoon.vue"),
+      },
+      {
+        path: "analytics",
+        component: () => import("../pages/CommingSoon.vue"),
+      },
+      {
+        path: "earnings",
+        component: () => import("../pages/CommingSoon.vue"),
+      },
+      {
+        path: "*",
+        component: () => import("../pages/Error404.vue"),
+      },
+    ],
   },
 ];
 
